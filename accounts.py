@@ -1,4 +1,5 @@
 # accounts.py — Account Registry
+from datetime import datetime
 registry = {} # master dict: account_id -> account dict
 
 def create_account(account_id, owner, balance=0):
@@ -14,7 +15,6 @@ def create_account(account_id, owner, balance=0):
 
 def get_account(account_id):
     acc = registry.get(account_id)
-    if acc and acc.get("frozen"):
-        print(f"Account {account_id} is frozen.")
-        return None
+    if acc:
+        acc["last_accessed"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     return acc
